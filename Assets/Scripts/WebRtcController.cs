@@ -16,7 +16,8 @@ public class WebRtcController : MonoBehaviour
 
     WebRtcMsgExchanger MsgExchanger;
 
-    public GameObject RenderingTarget;
+    //
+    public GameObject[] RenderingTargets;
 
     Texture2D tex;
     byte[] renderingBuffer;
@@ -33,7 +34,10 @@ public class WebRtcController : MonoBehaviour
     {
         Debug.Log("WebRTC Sample.Start() + " + " thread: " + Thread.CurrentThread.ManagedThreadId + ":" + Thread.CurrentThread.Name);
         tex = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
-        RenderingTarget.GetComponent<Renderer>().material.mainTexture = tex;
+        foreach (GameObject tage in RenderingTargets)
+        {
+            tage.GetComponent<Renderer>().material.mainTexture = tex;
+        }
         renderingBuffer = new byte[4 * tex.height * tex.width];
 
         inputTexture = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);

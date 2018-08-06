@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SimplePeerConnectionM
 {
+    /*
     // A class for ice candidate.
     public class IceCandidate
     {
@@ -34,7 +35,7 @@ namespace SimplePeerConnectionM
             get { return mSdpMid; }
             set { mSdpMid = value; }
         }
-    }
+    }*/
 
     // A managed wrapper up class for the native c style peer connection APIs.
     public class PeerConnectionM
@@ -284,6 +285,7 @@ namespace SimplePeerConnectionM
                 OnIceCandiateReadytoSend(mPeerConnectionId, candidate, sdpMlineIndex, sdpMid);
         }
 
+        /*
         public void AddQueuedIceCandidate(List<IceCandidate> iceCandidateQueue)
         {
             if (iceCandidateQueue != null)
@@ -293,7 +295,7 @@ namespace SimplePeerConnectionM
                     AddIceCandidate(mPeerConnectionId, ic.Candidate, ic.SdpMlineIndex, ic.SdpMid);
                 }
             }
-        }
+        }*/
 
         private LocalDataChannelReadyInternalDelegate localDataChannelReadyDelegate = null;
         public event LocalDataChannelReadyDelegate OnLocalDataChannelReady;
