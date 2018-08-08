@@ -51,14 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\MqttController.cs" />
-     <Compile Include="Assets\Scripts\PeerConnectionM.cs" />
-     <Compile Include="Assets\Scripts\PlaneUpdater.cs" />
-     <Compile Include="Assets\Scripts\WebRtcController.cs" />
-     <Compile Include="Assets\Scripts\WebRtcCore.cs" />
-     <Compile Include="Assets\Scripts\WebRtcCoreiOS.cs" />
-     <Compile Include="Assets\Scripts\WebRtcCoreWindows.cs" />
-     <Compile Include="Assets\Scripts\WebRtcMsgExchanger.cs" />
+     <Compile Include="Assets\Scripts\GameObjectBehaviour\PlaneUpdater.cs" />
+     <Compile Include="Assets\Scripts\MQTT\MqttController.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\iOS\WebRtcCoreiOS.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\Share\WebRtcCore.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\Share\WebRtcMsgExchanger.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\WebRtcController.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\Windows\PeerConnectionM.cs" />
+     <Compile Include="Assets\Scripts\WebRTC\Windows\WebRtcCoreWindows.cs" />
      <None Include="Assets\Shaders\culloff.shader" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/moritatomoki/Documents/projects/unity/webrtc/unityWebRTCiOSandWindows/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
