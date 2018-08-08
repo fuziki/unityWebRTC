@@ -22,7 +22,11 @@ public class WebRtcController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         webRtcCore = new WebRtcCoreWindows();
+		#elif UNITY_IPHONE
+		webRtcCore = new WebRtcCoreiOS();
+		#endif
 
         webRtcCore.MsgExchanger = webRtcMsgExchanger.GetComponent<WebRtcMsgExchanger>();
 
