@@ -40,8 +40,8 @@ public class WebRtcController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        webRtcCore.Update();
         webRtcCore.FrameGate_Input(SubCameraTexture);
+        webRtcCore.Update();
     }
 
 

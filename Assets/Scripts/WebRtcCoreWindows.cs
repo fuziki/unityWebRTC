@@ -90,6 +90,7 @@ public class WebRtcCoreWindows : WebRtcCore
     public override void FrameGate_Input(Texture2D tex)
     {
         if (peer == null) return;
+        if (recievedTextureBufferIsUpdated) return;
         inputTexturePixels = tex.GetPixels32();
         inputTextureHandle = GCHandle.Alloc(inputTexturePixels, GCHandleType.Pinned);
         inputTexturePixlesPtr = inputTextureHandle.AddrOfPinnedObject();
