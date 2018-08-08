@@ -21,7 +21,7 @@ public class WebRtcCoreWindows : WebRtcCore
     private bool recievedTextureBufferIsUpdated = false;
 
 
-    Texture2D inputTexture;
+
     IntPtr inputTexturePixlesPtr;
     Color32[] inputTexturePixels;
     GCHandle inputTextureHandle;
@@ -47,7 +47,7 @@ public class WebRtcCoreWindows : WebRtcCore
         peer.AddStream(false);
 
         RecievedTexture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
-        inputTexture = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
+        
 
 
 
@@ -86,18 +86,6 @@ public class WebRtcCoreWindows : WebRtcCore
 
     }
 
-    public override void FrameGate_Input(RenderTexture rtex)
-    {
-        if (peer == null) return;
-        RenderTexture currentRT = RenderTexture.active;
-        RenderTexture.active = rtex;
-        //Now Abailable to send only 480 x 640
-        if (inputTexture.width != rtex.width || inputTexture.height != rtex.height) return;
-        inputTexture.ReadPixels(new Rect(0, 0, rtex.width, rtex.height), 0, 0);
-        inputTexture.Apply();
-        RenderTexture.active = currentRT;
-        FrameGate_Input(inputTexture);
-    }
 
     public override void FrameGate_Input(Texture2D tex)
     {
