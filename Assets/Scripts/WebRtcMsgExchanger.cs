@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WebRtcMsgExchanger: MonoBehaviour
 {
-    public WebRtcController WebRtcCtr;
+//    public WebRtcController WebRtcCtr;
     virtual public void RequiredSendingMessage(string description, string message)
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
@@ -12,8 +12,16 @@ public class WebRtcMsgExchanger: MonoBehaviour
     public void WebRtcCtr_RecievedMessage(string description, string message)
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
-        WebRtcCtr.RecievedMessage(description, message);
+//        WebRtcCtr.RecievedMessage(description, message);
+        RtcCore.RecievedMessage(description, message);
     }
+
+
+
+    public WebRtcCore RtcCore;
+
+
+
 }
 
 

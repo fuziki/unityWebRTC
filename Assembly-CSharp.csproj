@@ -65,6 +65,9 @@
     <Compile Include="Assets\Scripts\PeerConnectionM.cs" />
     <Compile Include="Assets\Scripts\PlaneUpdater.cs" />
     <Compile Include="Assets\Scripts\WebRtcController.cs" />
+    <Compile Include="Assets\Scripts\WebRtcCore.cs" />
+    <Compile Include="Assets\Scripts\WebRtcCoreiOS.cs" />
+    <Compile Include="Assets\Scripts\WebRtcCoreWindows.cs" />
     <Compile Include="Assets\Scripts\WebRtcMsgExchanger.cs" />
     <None Include="Assets\Shaders\culloff.shader" />
     <Reference Include="UnityEditor.StandardEvents">

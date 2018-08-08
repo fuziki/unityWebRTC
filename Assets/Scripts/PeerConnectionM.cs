@@ -4,38 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SimplePeerConnectionM
 {
-    /*
-    // A class for ice candidate.
-    public class IceCandidate
-    {
-        public IceCandidate(string candidate, int sdpMlineIndex, string sdpMid)
-        {
-            mCandidate = candidate;
-            mSdpMlineIndex = sdpMlineIndex;
-            mSdpMid = sdpMid;
-        }
-        string mCandidate;
-        int mSdpMlineIndex;
-        string mSdpMid;
 
-        public string Candidate
-        {
-            get { return mCandidate; }
-            set { mCandidate = value; }
-        }
-
-        public int SdpMlineIndex
-        {
-            get { return mSdpMlineIndex; }
-            set { mSdpMlineIndex = value; }
-        }
-
-        public string SdpMid
-        {
-            get { return mSdpMid; }
-            set { mSdpMid = value; }
-        }
-    }*/
 
     // A managed wrapper up class for the native c style peer connection APIs.
     public class PeerConnectionM
