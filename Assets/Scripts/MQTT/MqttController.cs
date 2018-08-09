@@ -31,7 +31,7 @@ public class MqttController : WebRtcMsgExchanger
         {
 //            Debug.Log("MQTT received message " + msgPublishEventArgs.Topic + ", "
 //                + System.Text.Encoding.UTF8.GetString(msgPublishEventArgs.Message));
-            this.WebRtcCtr_RecievedMessage(args[2], System.Text.Encoding.UTF8.GetString(msgPublishEventArgs.Message));
+            this.WebRtcCtr_ReceivedMessage(args[2], System.Text.Encoding.UTF8.GetString(msgPublishEventArgs.Message));
         }
     }
     void SendMessage(string topic, string message)

@@ -68,13 +68,13 @@ namespace SimplePeerConnectionM
             AudioBusReadyInternalDelegate callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate void RecievedRGBFrameInternalDelegate(
+        private delegate void ReceivedRGBFrameInternalDelegate(
             IntPtr rgb, uint width, uint height);
-        public delegate void RecievedRGBFrameDelegate(int id,
+        public delegate void ReceivedRGBFrameDelegate(int id,
             IntPtr rgb, uint width, uint height);
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool FrameGate_RegisterOnRecieved(int peerConnectionId,
-            RecievedRGBFrameInternalDelegate callback);
+        private static extern bool FrameGate_RegisterOnReceived(int peerConnectionId,
+            ReceivedRGBFrameInternalDelegate callback);
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -196,8 +196,8 @@ namespace SimplePeerConnectionM
             audioBusReadyDelegate = new AudioBusReadyInternalDelegate(RaiseAudioBusReady);
             RegisterOnAudioBusReady(mPeerConnectionId, audioBusReadyDelegate);
 
-            FramgeGate_RecievedDelegate = new RecievedRGBFrameInternalDelegate(RaiseRGBVideoFrameReady);
-            FrameGate_RegisterOnRecieved(mPeerConnectionId, FramgeGate_RecievedDelegate);
+            FramgeGate_ReceivedDelegate = new ReceivedRGBFrameInternalDelegate(RaiseRGBVideoFrameReady);
+            FrameGate_RegisterOnReceived(mPeerConnectionId, FramgeGate_ReceivedDelegate);
 
             localSdpReadytoSendDelegate = new LocalSdpReadytoSendInternalDelegate(
               RaiseLocalSdpReadytoSend);
@@ -237,8 +237,8 @@ namespace SimplePeerConnectionM
 
         private void RaiseRGBVideoFrameReady(IntPtr rgb, uint width, uint height)
         {
-            if (FramgeGate_onRecieved != null)
-                FramgeGate_onRecieved(mPeerConnectionId, rgb, width, height);
+            if (FramgeGate_onReceived != null)
+                FramgeGate_onReceived(mPeerConnectionId, rgb, width, height);
         }
 
 
@@ -278,8 +278,8 @@ namespace SimplePeerConnectionM
         private AudioBusReadyInternalDelegate audioBusReadyDelegate = null;
         public event AudioBusReadyDelegate OnAudioBusReady;
 
-        private RecievedRGBFrameInternalDelegate FramgeGate_RecievedDelegate = null;
-        public event RecievedRGBFrameDelegate FramgeGate_onRecieved;
+        private ReceivedRGBFrameInternalDelegate FramgeGate_ReceivedDelegate = null;
+        public event ReceivedRGBFrameDelegate FramgeGate_onReceived;
 
 
         private LocalSdpReadytoSendInternalDelegate localSdpReadytoSendDelegate = null;

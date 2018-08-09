@@ -24,7 +24,7 @@ public class WebRtcController : MonoBehaviour
     {
 		#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         webRtcCore = new WebRtcCoreWindows();
-		#elif UNITY_IPHONE
+		#elif UNITY_IOS
 		webRtcCore = new WebRtcCoreiOS();
 		#endif
 
@@ -32,7 +32,7 @@ public class WebRtcController : MonoBehaviour
 
         foreach (GameObject tage in RenderingTargets)
         {
-            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.RecievedTexture2D;
+//            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.ReceivedTexture2D;
         }
     }
 

@@ -24,7 +24,7 @@ Unityのプロジェクトを２台のPCで起動します。
 WebRTCのSDPとICEの交換のためにWebRtcMsgExchangerを継承したオブジェクトが必要です。
 descriptionとmessageをリモートのPCにそのまま送信してください。
 ローカル側PCから送信すべきメッセージが生成された場合はRequiredSendingMessageが呼ばれます。
-リモート側からメッセージを受信した場合は、WebRtcCtr_RecievedMessageを使ってWebRTCのコントローラにデータを渡します。
+リモート側からメッセージを受信した場合は、WebRtcCtr_ReceivedMessageを使ってWebRTCのコントローラにデータを渡します。
 
 ```csharp:WebRtcMsgExchanger.cs
 
@@ -35,10 +35,10 @@ public class WebRtcMsgExchanger: MonoBehaviour
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
     }
-    public void WebRtcCtr_RecievedMessage(string description, string message)
+    public void WebRtcCtr_ReceivedMessage(string description, string message)
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
-        WebRtcCtr.RecievedMessage(description, message);
+        WebRtcCtr.ReceivedMessage(description, message);
     }
 }
 
@@ -54,8 +54,8 @@ public class WebRtcMsgExchanger: MonoBehaviour
 imageに送信したい画像のARGB32形式の2次元配列、幅、高さをそれぞれ渡します。
 
 ・フレームの受け取り：
-FramgeGate_onRecieved(IntPtr rgb, int width, int height)
-リモートのPCからフレームを入力されると、FramgeGate_onRecievedが呼ばれます。
+FramgeGate_onReceived(IntPtr rgb, int width, int height)
+リモートのPCからフレームを入力されると、FramgeGate_onReceivedが呼ばれます。
 rgbは受信した画像の2次元配列です。
 LoadRawTextureDataを使って、Texture2Dに反映させます。
 
