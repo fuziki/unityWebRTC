@@ -6,6 +6,9 @@ namespace SimplePeerConnectionM
 {
 
 
+
+
+
     // A managed wrapper up class for the native c style peer connection APIs.
     public class PeerConnectionM
     {
@@ -254,17 +257,7 @@ namespace SimplePeerConnectionM
                 OnIceCandiateReadytoSend(mPeerConnectionId, candidate, sdpMlineIndex, sdpMid);
         }
 
-        /*
-        public void AddQueuedIceCandidate(List<IceCandidate> iceCandidateQueue)
-        {
-            if (iceCandidateQueue != null)
-            {
-                foreach (IceCandidate ic in iceCandidateQueue)
-                {
-                    AddIceCandidate(mPeerConnectionId, ic.Candidate, ic.SdpMlineIndex, ic.SdpMid);
-                }
-            }
-        }*/
+
 
         private LocalDataChannelReadyInternalDelegate localDataChannelReadyDelegate = null;
         public event LocalDataChannelReadyDelegate OnLocalDataChannelReady;

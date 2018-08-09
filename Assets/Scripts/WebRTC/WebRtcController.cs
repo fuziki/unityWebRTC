@@ -10,7 +10,7 @@ public class WebRtcController : MonoBehaviour
 {
     private WebRtcCore webRtcCore;
 
-    public GameObject webRtcMsgExchanger;
+    public GameObject WebRtcMsgExchanger;
 
 
     public GameObject[] RenderingTargets;
@@ -28,11 +28,11 @@ public class WebRtcController : MonoBehaviour
 		webRtcCore = new WebRtcCoreiOS();
 		#endif
 
-        webRtcCore.MsgExchanger = webRtcMsgExchanger.GetComponent<WebRtcMsgExchanger>();
+        webRtcCore.MsgExchanger = WebRtcMsgExchanger.GetComponent<WebRtcMsgExchanger>();
 
         foreach (GameObject tage in RenderingTargets)
         {
-//            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.ReceivedTexture2D;
+            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.ReceivedTexture2D;
         }
     }
 

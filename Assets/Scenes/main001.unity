@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ece30939f68b9e428015b87f4b73c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webRtcMsgExchanger: {fileID: 2129389303}
+  WebRtcMsgExchanger: {fileID: 2129389303}
   RenderingTargets:
   - {fileID: 1343941993}
   - {fileID: 22078833}

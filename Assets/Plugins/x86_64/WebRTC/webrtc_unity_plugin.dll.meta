@@ -1,6 +1,5 @@
 fileFormatVersion: 2
 guid: 8ae8d386707a3dd4d858d933532a4cc1
-timeCreated: 18446744011573954816
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -21,9 +20,11 @@ PluginImporter:
         Exclude LinuxUniversal: 0
         Exclude OSXUniversal: 0
         Exclude WebGL: 0
-        Exclude Win: 1
+        Exclude Win: 0
         Exclude Win64: 0
+        Exclude WindowsStoreApps: 0
         Exclude iOS: 0
+        Exclude tvOS: 0
   - first:
       '': OSXIntel
     second:
@@ -60,7 +61,7 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: None
+        CPU: AnyCPU
   - first:
       Facebook: Win64
     second:
@@ -94,9 +95,9 @@ PluginImporter:
   - first:
       Standalone: Win
     second:
-      enabled: 0
+      enabled: 1
       settings:
-        CPU: None
+        CPU: AnyCPU
   - first:
       Standalone: Win64
     second:
@@ -109,7 +110,25 @@ PluginImporter:
       enabled: 1
       settings: {}
   - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+        DontProcess: false
+        PlaceholderPath: 
+        SDK: AnySDK
+        ScriptingBackend: AnyScriptingBackend
+  - first:
       iPhone: iOS
+    second:
+      enabled: 1
+      settings:
+        AddToEmbeddedBinaries: false
+        CompileFlags: 
+        FrameworkDependencies: 
+  - first:
+      tvOS: tvOS
     second:
       enabled: 1
       settings:
