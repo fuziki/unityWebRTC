@@ -6,7 +6,7 @@ public class WebRtcCore
 {
     
     
-    public Texture2D RecievedTexture2D;
+    public Texture2D ReceivedTexture2D;
     private Texture2D inputTexture = null;
 
     private WebRtcMsgExchanger msgExchanger;
@@ -56,7 +56,7 @@ public class WebRtcCore
     {
     }
 
-    virtual public void RecievedMessage(string description, string message)
+    virtual public void ReceivedMessage(string description, string message)
     {
     }
     

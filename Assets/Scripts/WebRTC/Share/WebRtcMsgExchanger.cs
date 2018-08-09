@@ -9,11 +9,11 @@ public class WebRtcMsgExchanger: MonoBehaviour
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
     }
-    public void WebRtcCtr_RecievedMessage(string description, string message)
+    public void WebRtcCtr_ReceivedMessage(string description, string message)
     {
 //        Debug.Log("WebRtcMsgExchanger, " + description + ", " + message);
-//        WebRtcCtr.RecievedMessage(description, message);
-        RtcCore.RecievedMessage(description, message);
+//        WebRtcCtr.ReceivedMessage(description, message);
+        RtcCore.ReceivedMessage(description, message);
     }
 
 

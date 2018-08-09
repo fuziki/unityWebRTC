@@ -44,7 +44,7 @@ public class PeerConnectioniOS
 
 
 
-
+	//for callback system start //naga!
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void SDPREADY_Delegate(string type, string sdp);
 	private static event SDPREADY_Delegate onSdpReadyDelegate;
@@ -57,6 +57,7 @@ public class PeerConnectioniOS
 	{
 		if (onSdpReadyDelegate != null) onSdpReadyDelegate(type, sdp);
 	}
+	//end
 
 
 

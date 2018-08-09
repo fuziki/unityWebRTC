@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimplePeerConnectionM;
@@ -17,8 +17,8 @@ public class WebRtcCoreWindows : WebRtcCore
     private PeerConnectionM peer;
     private WebRtcMsgExchanger msgExchanger;
 
-    private byte[] recievedTextureBuffer;
-    private bool recievedTextureBufferIsUpdated = false;
+    private byte[] receivedTextureBuffer;
+    private bool receivedTextureBufferIsUpdated = false;
 
 
 
@@ -39,19 +39,19 @@ public class WebRtcCoreWindows : WebRtcCore
 
         peer.OnLocalSdpReadytoSend += OnLocalSdpReadytoSend;
         peer.OnIceCandiateReadytoSend += OnIceCandiateReadytoSend;
-        peer.FramgeGate_onRecieved += RecievedRGBFrame;
+        peer.FramgeGate_onReceived += ReceivedRGBFrame;
         peer.OnFailureMessage += OnFailureMessage;
 
 
 
         peer.AddStream(false);
 
-        RecievedTexture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
+        ReceivedTexture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
         
 
 
 
-        recievedTextureBuffer = new byte[4 * RecievedTexture2D.height * RecievedTexture2D.width];
+        receivedTextureBuffer = new byte[4 * ReceivedTexture2D.height * ReceivedTexture2D.width];
 
         Debug.Log("Created WebRTC Core for Windows x64");
     }
@@ -77,11 +77,11 @@ public class WebRtcCoreWindows : WebRtcCore
     public override void Update()
     {
         if (peer == null) return;
-        if (recievedTextureBufferIsUpdated)
+        if (receivedTextureBufferIsUpdated)
         {
-            RecievedTexture2D.LoadRawTextureData(recievedTextureBuffer);
-            RecievedTexture2D.Apply();
-            recievedTextureBufferIsUpdated = false;
+            ReceivedTexture2D.LoadRawTextureData(receivedTextureBuffer);
+            ReceivedTexture2D.Apply();
+            receivedTextureBufferIsUpdated = false;
         }
 
     }
@@ -90,7 +90,7 @@ public class WebRtcCoreWindows : WebRtcCore
     public override void FrameGate_Input(Texture2D tex)
     {
         if (peer == null) return;
-        if (recievedTextureBufferIsUpdated) return;
+        if (receivedTextureBufferIsUpdated) return;
         inputTexturePixels = tex.GetPixels32();
         inputTextureHandle = GCHandle.Alloc(inputTexturePixels, GCHandleType.Pinned);
         inputTexturePixlesPtr = inputTextureHandle.AddrOfPinnedObject();
@@ -128,11 +128,11 @@ public class WebRtcCoreWindows : WebRtcCore
         MsgExchanger.RequiredSendingMessage("iceJson", jonStr);
     }
 
-    public void RecievedRGBFrame(int id, IntPtr rgb, uint width, uint height)
+    public void ReceivedRGBFrame(int id, IntPtr rgb, uint width, uint height)
     {
-        if (recievedTextureBufferIsUpdated) return;
-        Marshal.Copy(rgb, recievedTextureBuffer, 0, (int)(4 * width * height));
-        recievedTextureBufferIsUpdated = true;
+        if (receivedTextureBufferIsUpdated) return;
+        Marshal.Copy(rgb, receivedTextureBuffer, 0, (int)(4 * width * height));
+        receivedTextureBufferIsUpdated = true;
 
     }
 
@@ -144,7 +144,7 @@ public class WebRtcCoreWindows : WebRtcCore
     }
 
 
-    public override void RecievedMessage(string description, string message)
+    public override void ReceivedMessage(string description, string message)
     {
         if (description == "offer")
         {
