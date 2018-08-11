@@ -37,7 +37,7 @@ public class PeerConnectioniOS
 	private static extern void CoMuLogger_Log(string msg);
 
 
-	public void CallTest() {
+	public void MakePeer() {
 		CoMuLight_MakePeer();
 	}
 

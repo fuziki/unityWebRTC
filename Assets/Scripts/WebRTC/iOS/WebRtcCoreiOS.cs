@@ -23,6 +23,7 @@ public class WebRtcCoreiOS : WebRtcCore
 
 	public void SdpReadyCallback(string type, string sdp)
 	{
+		CoMuLogger_Log("SdpReadyCallback is type, " + type + ", sdp " + sdp);
 		MsgExchanger.RequiredSendingMessage(type, sdp);
 	}
 
@@ -35,7 +36,6 @@ public class WebRtcCoreiOS : WebRtcCore
 		CoMuLogger_Log("WebRtcCoreiOS is created");
 		ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
 		peer.SetReceivedTexture2D(this.ReceivedTexture2D);
-		peer.CallTest();
     }
 
     public override void Close()
@@ -46,6 +46,7 @@ public class WebRtcCoreiOS : WebRtcCore
     public override void CreateOffer()
     {
 		CoMuLogger_Log("WebRtcCoreiOS is required creating offer");
+		peer.MakePeer();
     }
 
     public override void Update()

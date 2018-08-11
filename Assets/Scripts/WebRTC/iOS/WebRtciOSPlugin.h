@@ -8,12 +8,12 @@
 #ifndef WebRtciOSPlugin_h
 #define WebRtciOSPlugin_h
 
-typedef void (*SDPREADY_CALLBACK) (char* type, char* sdp);
+typedef void (*SDPREADY_CALLBACK) (const char* type, const char* sdp);
 
 static SDPREADY_CALLBACK SdpReady_Callback;
 
 @interface WebRtciOSPlugin : NSObject
-+ (void)SdpReady :(char *)type :(char *)sdp;
++ (void)SdpReadyString :(NSString *)type :(NSString *)sdp;
 
 @end
 
