@@ -39,7 +39,7 @@ public class WebRtcCore
     virtual public void FrameGate_Input(Texture2D tex)
     {
     }
-    virtual public void FrameGate_Input(RenderTexture rtex)
+    public void FrameGate_Input(RenderTexture rtex)
     {
         if(inputTexture == null) inputTexture = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
         RenderTexture currentRT = RenderTexture.active;

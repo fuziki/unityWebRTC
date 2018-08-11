@@ -21,10 +21,9 @@ public class WebRtcCoreiOS : WebRtcCore
 	private PeerConnectioniOS peer;
 
 
-
 	public void SdpReadyCallback(string type, string sdp)
 	{
-		CoMuLogger_Log("this is callback " + type + ", " + sdp);
+		MsgExchanger.RequiredSendingMessage(type, sdp);
 	}
 
 
@@ -34,6 +33,8 @@ public class WebRtcCoreiOS : WebRtcCore
 		peer = new PeerConnectioniOS();
 		peer.OnLocalSdpReady += SdpReadyCallback;
 		CoMuLogger_Log("WebRtcCoreiOS is created");
+		ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
+		peer.SetReceivedTexture2D(this.ReceivedTexture2D);
 		peer.CallTest();
     }
 
@@ -49,20 +50,19 @@ public class WebRtcCoreiOS : WebRtcCore
 
     public override void Update()
     {
-    }
-
-    public override void FrameGate_Input(RenderTexture rtex)
-    {
+		peer.Update();
     }
 
     public override void FrameGate_Input(Texture2D tex)
     {
+		peer.InputFrame(tex);
     }
 
 
 
     public override void ReceivedMessage(string description, string message)
     {
+		peer.ReceivedSdp(description, message);
     }
 
 
