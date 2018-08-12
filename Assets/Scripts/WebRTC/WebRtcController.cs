@@ -44,8 +44,10 @@ public class WebRtcController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        webRtcCore.FrameGate_Input(SubCameraTexture);
+        long timestamp_us = DateTime.Now.Ticks / 10;   //time stamp micro sec
+        webRtcCore.FrameGate_Input(SubCameraTexture, timestamp_us);
         webRtcCore.Update();
+        Debug.Log("got frame timestamp is : " + webRtcCore.ReceivedTexture2D_timesatmp_us);
     }
 
 

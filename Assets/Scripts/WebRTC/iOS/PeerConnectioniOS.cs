@@ -11,7 +11,7 @@ using AOT;
 public class PeerConnectioniOS
 {
 
-	public Texture2D ReceivedTexture2D;
+//	public Texture2D ReceivedTexture2D;
 
 	private Color32[] pixels_output;
 	private GCHandle pixelsHandle_output;
@@ -23,10 +23,20 @@ public class PeerConnectioniOS
 	[DllImport("__Internal")]
 	private static extern void CoMuLight_InputMetalFrame(IntPtr frame);
 
-	[DllImport("__Internal")]
-	private static extern void CoMuLight_GetFrame(IntPtr frame);
+    [DllImport("__Internal")]
+    private static extern void CoMuLight_GetFrame(IntPtr frame);
 
-	[DllImport("__Internal")]
+//    [DllImport("__Internal")]
+//    private static extern int CoMuLight_GetFrameWidth();
+
+//    [DllImport("__Internal")]
+//    private static extern int CoMuLight_GetFrameHeight();
+
+//    [DllImport("__Internal")]
+//    private static extern long CoMuLight_GetFrame_timesatmp_us();
+
+
+    [DllImport("__Internal")]
 	private static extern void CoMuLight_RegisterSdpReady(SDPREADY_Delegate callback);
 
 	[DllImport("__Internal")]
@@ -46,13 +56,11 @@ public class PeerConnectioniOS
 	public PeerConnectioniOS()
 	{		
 		RegisterCallbacks();
-	}
-	public void SetReceivedTexture2D(Texture2D tex) {
-		ReceivedTexture2D = tex;
-		pixels_output = ReceivedTexture2D.GetPixels32();
-		pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
-		pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
-	}
+        Texture2D ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
+        pixels_output = ReceivedTexture2D.GetPixels32();
+        pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
+        pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+    }
 
 	private void RegisterCallbacks()
 	{
@@ -66,22 +74,42 @@ public class PeerConnectioniOS
 		CoMuLight_ReceivedSdp(description, message);
 	}
 
-	public void InputFrame(Texture2D frame) 
+	public void InputFrame(Texture2D frame, long timestamp_us) 
 	{
 		CoMuLight_InputMetalFrame(frame.GetNativeTexturePtr());
 	}
 
-	public void Update() 
+	public void UpdateTexture(ref Texture2D tex)
 	{
-		CoMuLight_GetFrame(pixelsPtr_output);
-		ReceivedTexture2D.SetPixels32(pixels_output);
-		ReceivedTexture2D.Apply();
+//        int width = CoMuLight_GetFrameWidth();
+//        int height = CoMuLight_GetFrameHeight();
+        int width = tex.width;
+        int height = tex.height;
+        if(width != tex.width || height != tex.height)
+        {
+            tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            pixels_output = tex.GetPixels32();
+            pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
+            pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+        }
+
+        CoMuLight_GetFrame(pixelsPtr_output);
+        tex.SetPixels32(pixels_output);
+        tex.Apply();
 	}
+    public long ReceivedTexture2D_timesatmp_us
+    {
+        get
+        {
+//            return CoMuLight_GetFrame_timesatmp_us();
+            return 0;
+        }
+    }
 
 
 
-	//for callback system start //naga!
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    //for callback system start //naga!
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void SDPREADY_Delegate(string type, string sdp);
 	private static event SDPREADY_Delegate onSdpReadyDelegate;
 	public event SDPREADY_Delegate OnLocalSdpReady {
@@ -94,6 +122,8 @@ public class PeerConnectioniOS
 		if (onSdpReadyDelegate != null) onSdpReadyDelegate(type, sdp);
 	}
 	//end
+
+
 
 
 

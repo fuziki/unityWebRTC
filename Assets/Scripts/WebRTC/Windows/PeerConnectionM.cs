@@ -72,9 +72,9 @@ namespace SimplePeerConnectionM
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void ReceivedRGBFrameInternalDelegate(
-            IntPtr rgb, uint width, uint height);
+            IntPtr rgb, uint width, uint height, long timestamp_us);
         public delegate void ReceivedRGBFrameDelegate(int id,
-            IntPtr rgb, uint width, uint height);
+            IntPtr rgb, uint width, uint height, long timestamp_us);
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool FrameGate_RegisterOnReceived(int peerConnectionId,
             ReceivedRGBFrameInternalDelegate callback);
@@ -115,10 +115,10 @@ namespace SimplePeerConnectionM
         }
 
         [DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void FramgeGate_Input(int peer_connection_id, IntPtr image, int width, int height);
-        public void FramgeGate_Input(IntPtr image, int width, int height)
+        private static extern void FramgeGate_Input(int peer_connection_id, IntPtr image, int width, int height, Int64 timestamp_us);
+        public void FramgeGate_Input(IntPtr image, int width, int height, Int64 timestamp_us)
         {
-            FramgeGate_Input(mPeerConnectionId, image, width, height);
+            FramgeGate_Input(mPeerConnectionId, image, width, height, timestamp_us);
         }
 
         //
@@ -238,10 +238,10 @@ namespace SimplePeerConnectionM
                     numberOfChannels, numberOfFrames);
         }
 
-        private void RaiseRGBVideoFrameReady(IntPtr rgb, uint width, uint height)
+        private void RaiseRGBVideoFrameReady(IntPtr rgb, uint width, uint height, long timestamp_us)
         {
             if (FramgeGate_onReceived != null)
-                FramgeGate_onReceived(mPeerConnectionId, rgb, width, height);
+                FramgeGate_onReceived(mPeerConnectionId, rgb, width, height, timestamp_us);
         }
 
 

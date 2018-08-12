@@ -87,14 +87,14 @@ public class WebRtcCoreWindows : WebRtcCore
     }
 
 
-    public override void FrameGate_Input(Texture2D tex)
+    public override void FrameGate_Input(Texture2D tex, long timestamp_us)
     {
         if (peer == null) return;
         if (receivedTextureBufferIsUpdated) return;
         inputTexturePixels = tex.GetPixels32();
         inputTextureHandle = GCHandle.Alloc(inputTexturePixels, GCHandleType.Pinned);
         inputTexturePixlesPtr = inputTextureHandle.AddrOfPinnedObject();
-        peer.FramgeGate_Input(inputTexturePixlesPtr, (int)tex.width, (int)tex.height);
+        peer.FramgeGate_Input(inputTexturePixlesPtr, (int)tex.width, (int)tex.height, timestamp_us);
 
     }
 
@@ -128,11 +128,12 @@ public class WebRtcCoreWindows : WebRtcCore
         MsgExchanger.RequiredSendingMessage("iceJson", jonStr);
     }
 
-    public void ReceivedRGBFrame(int id, IntPtr rgb, uint width, uint height)
+    public void ReceivedRGBFrame(int id, IntPtr rgb, uint width, uint height, long timestamp_us)
     {
         if (receivedTextureBufferIsUpdated) return;
         Marshal.Copy(rgb, receivedTextureBuffer, 0, (int)(4 * width * height));
         receivedTextureBufferIsUpdated = true;
+        ReceivedTexture2D_timesatmp_us = timestamp_us;
 
     }
 
