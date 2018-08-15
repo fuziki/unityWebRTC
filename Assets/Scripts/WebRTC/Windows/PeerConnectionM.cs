@@ -148,9 +148,9 @@ namespace SimplePeerConnectionM
             AddStream(mPeerConnectionId, audioOnly);
         }
 
-        public void AddDataChannel()
+        public bool AddDataChannel()
         {
-            AddDataChannel(mPeerConnectionId);
+            return AddDataChannel(mPeerConnectionId);
         }
 
         public void CreateOffer()
@@ -163,9 +163,9 @@ namespace SimplePeerConnectionM
             CreateAnswer(mPeerConnectionId);
         }
 
-        public void SendDataViaDataChannel(string data)
+        public bool SendDataViaDataChannel(string data)
         {
-            SendDataViaDataChannel(mPeerConnectionId, data);
+            return SendDataViaDataChannel(mPeerConnectionId, data);
         }
 
         public void SetAudioControl(bool isMute, bool isRecord)

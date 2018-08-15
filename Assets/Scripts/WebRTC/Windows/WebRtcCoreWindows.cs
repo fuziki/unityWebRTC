@@ -28,8 +28,15 @@ public class WebRtcCoreWindows : WebRtcCore
 
     public int UniquePeerId;
 
+    private UnityEngine.UI.Text text;
+
+    private bool localDataChan = false;
+
     public WebRtcCoreWindows()
     {
+
+//        text = GameObject.Find("TestText").GetComponent<UnityEngine.UI.Text>();
+
         Close();
         List<string> servers = new List<string>();
         servers.Add("stun: stun.l.google.com:19302");
@@ -42,9 +49,13 @@ public class WebRtcCoreWindows : WebRtcCore
         peer.FramgeGate_onReceived += ReceivedRGBFrame;
         peer.OnFailureMessage += OnFailureMessage;
 
-
+        peer.OnDataFromDataChannelReady += DataFromDataChannelReady;
+        peer.OnLocalDataChannelReady += DataFromDataChannelReady2;
 
         peer.AddStream(false);
+        bool rst = peer.AddDataChannel();
+
+        Debug.Log("add data channel rst : " + rst);
 
         ReceivedTexture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
         
@@ -96,6 +107,10 @@ public class WebRtcCoreWindows : WebRtcCore
         inputTexturePixlesPtr = inputTextureHandle.AddrOfPinnedObject();
         peer.FramgeGate_Input(inputTexturePixlesPtr, (int)tex.width, (int)tex.height, timestamp_us);
 
+        if (!localDataChan) return;
+//        bool rst = peer.SendDataViaDataChannel(timestamp_us.ToString());
+        bool rst = peer.SendDataViaDataChannel("hello");
+
     }
 
 
@@ -135,6 +150,18 @@ public class WebRtcCoreWindows : WebRtcCore
         receivedTextureBufferIsUpdated = true;
         ReceivedTexture2D_timesatmp_us = timestamp_us;
 
+    }
+
+    public void DataFromDataChannelReady(int id, string str)
+    {
+        Debug.Log("get data by data channel : " + str);
+//        text.text = str;
+    }
+    public void DataFromDataChannelReady2(int str)
+    {
+        Debug.Log("get data by data channel 2 : " + str);
+//        text.text = str.ToString();
+        localDataChan = true;
     }
 
 
