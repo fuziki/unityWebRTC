@@ -62,5 +62,7 @@ LoadRawTextureDataを使って、Texture2Dに反映させます。
 
 ## 対応OS
 現段階ではwindows10, x64にのみ対応しています。
-今後、iOSは対応する予定です。
+今後、iOSは対応する予定です。  
+
+new mac test
 
