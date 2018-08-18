@@ -13,6 +13,8 @@ public class PeerConnectioniOS
 
 //	public Texture2D ReceivedTexture2D;
 
+    private RTCVideoFrame receivedVideoFrame;
+
 	private Color32[] pixels_output;
 	private GCHandle pixelsHandle_output;
 	private IntPtr pixelsPtr_output;
@@ -56,10 +58,18 @@ public class PeerConnectioniOS
 	public PeerConnectioniOS()
 	{		
 		RegisterCallbacks();
-        Texture2D ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
-        pixels_output = ReceivedTexture2D.GetPixels32();
-        pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
-        pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+//        Texture2D ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
+//        pixels_output = ReceivedTexture2D.GetPixels32();
+//        pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
+//        pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+    }
+    public RTCVideoFrame ReceivedVideoFrame {
+        set{
+            receivedVideoFrame = value;
+            pixels_output = receivedVideoFrame.texture2D.GetPixels32();
+            pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
+            pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+        }
     }
 
 	private void RegisterCallbacks()
@@ -97,6 +107,24 @@ public class PeerConnectioniOS
         tex.SetPixels32(pixels_output);
         tex.Apply();
 	}
+
+    public void Update()
+    {
+        int width = receivedVideoFrame.texture2D.width;
+        int height = receivedVideoFrame.texture2D.height;
+        if (width != receivedVideoFrame.texture2D.width || height != receivedVideoFrame.texture2D.height)
+        {
+            receivedVideoFrame.texture2D = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            pixels_output = receivedVideoFrame.texture2D.GetPixels32();
+            pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
+            pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
+        }
+
+        CoMuLight_GetFrame(pixelsPtr_output);
+        receivedVideoFrame.texture2D.SetPixels32(pixels_output);
+        receivedVideoFrame.texture2D.Apply();
+    }
+
     public long ReceivedTexture2D_timesatmp_us
     {
         get

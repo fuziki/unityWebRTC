@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "ProductName-Swift.h"    // Required
+#import "webrtctest-Swift.h"    // Required
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>
 #import "WebRtciOSPlugin.h"

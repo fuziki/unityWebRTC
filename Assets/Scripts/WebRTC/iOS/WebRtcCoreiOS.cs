@@ -21,6 +21,7 @@ public class WebRtcCoreiOS : WebRtcCore
 	private PeerConnectioniOS peer;
 
 
+
 	public void SdpReadyCallback(string type, string sdp)
 	{
 		CoMuLogger_Log("SdpReadyCallback is type, " + type + ", sdp " + sdp);
@@ -34,7 +35,9 @@ public class WebRtcCoreiOS : WebRtcCore
 		peer = new PeerConnectioniOS();
 		peer.OnLocalSdpReady += SdpReadyCallback;
 		CoMuLogger_Log("WebRtcCoreiOS is created");
-		ReceivedTexture2D = new Texture2D(480, 640, TextureFormat.RGBA32, false);
+        Texture2D tex = new Texture2D(480, 640, TextureFormat.RGBA32, false);
+        ReceivedVideoFrame = new RTCVideoFrame(tex, 0);
+        peer.ReceivedVideoFrame = this.ReceivedVideoFrame;
     }
 
     public override void Close()
@@ -50,8 +53,9 @@ public class WebRtcCoreiOS : WebRtcCore
 
     public override void Update()
     {
-        peer.UpdateTexture(ref ReceivedTexture2D);
-        this.ReceivedTexture2D_timesatmp_us = peer.ReceivedTexture2D_timesatmp_us;
+        peer.Update();
+//        peer.UpdateTexture(ref ReceivedTexture2D);
+//        this.ReceivedTexture2D_timesatmp_us = peer.ReceivedTexture2D_timesatmp_us;
     }
 
     public override void FrameGate_Input(Texture2D tex, long timestamp_us)

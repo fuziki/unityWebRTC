@@ -57,12 +57,12 @@ public class WebRtcCoreWindows : WebRtcCore
 
         Debug.Log("add data channel rst : " + rst);
 
-        ReceivedTexture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
+        ReceivedVideoFrame.texture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
         
 
 
 
-        receivedTextureBuffer = new byte[4 * ReceivedTexture2D.height * ReceivedTexture2D.width];
+        receivedTextureBuffer = new byte[4 * ReceivedVideoFrame.texture2D.height * ReceivedVideoFrame.texture2D.width];
 
         Debug.Log("Created WebRTC Core for Windows x64");
     }
@@ -90,8 +90,8 @@ public class WebRtcCoreWindows : WebRtcCore
         if (peer == null) return;
         if (receivedTextureBufferIsUpdated)
         {
-            ReceivedTexture2D.LoadRawTextureData(receivedTextureBuffer);
-            ReceivedTexture2D.Apply();
+            ReceivedVideoFrame.texture2D.LoadRawTextureData(receivedTextureBuffer);
+            ReceivedVideoFrame.texture2D.Apply();
             receivedTextureBufferIsUpdated = false;
         }
 
@@ -148,7 +148,7 @@ public class WebRtcCoreWindows : WebRtcCore
         if (receivedTextureBufferIsUpdated) return;
         Marshal.Copy(rgb, receivedTextureBuffer, 0, (int)(4 * width * height));
         receivedTextureBufferIsUpdated = true;
-        ReceivedTexture2D_timesatmp_us = timestamp_us;
+        ReceivedVideoFrame.timestamp_us = timestamp_us;
 
     }
 

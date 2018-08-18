@@ -6,9 +6,11 @@ public class WebRtcCore
 {
 
 
-    public Texture2D ReceivedTexture2D;
-    public long ReceivedTexture2D_timesatmp_us;
+//    public Texture2D ReceivedTexture2D;
+//    public long ReceivedTexture2D_timesatmp_us;
     private Texture2D inputTexture = null;
+
+    public RTCVideoFrame ReceivedVideoFrame;
 
     private WebRtcMsgExchanger msgExchanger;
     public WebRtcMsgExchanger MsgExchanger

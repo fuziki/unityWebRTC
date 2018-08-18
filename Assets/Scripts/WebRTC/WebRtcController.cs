@@ -32,7 +32,7 @@ public class WebRtcController : MonoBehaviour
 
         foreach (GameObject tage in RenderingTargets)
         {
-            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.ReceivedTexture2D;
+            tage.GetComponent<Renderer>().material.mainTexture = webRtcCore.ReceivedVideoFrame.texture2D;
         }
     }
 

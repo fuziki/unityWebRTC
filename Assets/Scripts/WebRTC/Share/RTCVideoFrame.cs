@@ -11,7 +11,7 @@ public class RTCVideoFrame {
         texture2D = tex;
         timestamp_us = ts_us;
     }
-    public void setTexture2DbyRenderTexture(RenderTexture rtex)
+    public void SetTexture2DbyRenderTexture(RenderTexture rtex)
     {
         if (texture2D == null) texture2D = new Texture2D((int)rtex.width, (int)rtex.height, TextureFormat.ARGB32, false);
         RenderTexture currentRT = RenderTexture.active;
@@ -26,3 +26,10 @@ public class RTCVideoFrame {
     }
 
 }
+
+
+
+
+
+
+
