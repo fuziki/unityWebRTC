@@ -20,6 +20,8 @@ public class WebRtcCoreWindows : WebRtcCore
     private byte[] receivedTextureBuffer;
     private bool receivedTextureBufferIsUpdated = false;
 
+    private int receivedTexture_width = 0;
+    private int receivedTexture_height = 0;
 
 
     IntPtr inputTexturePixlesPtr;
@@ -57,8 +59,8 @@ public class WebRtcCoreWindows : WebRtcCore
 
         Debug.Log("add data channel rst : " + rst);
 
-        ReceivedVideoFrame.texture2D = new Texture2D((int)480, (int)640, TextureFormat.ARGB32, false);
-        
+        Texture2D tex = new Texture2D((int)1920, (int)1080, TextureFormat.ARGB32, false);
+        ReceivedVideoFrame = new RTCVideoFrame(tex, 0);
 
 
 
@@ -90,6 +92,11 @@ public class WebRtcCoreWindows : WebRtcCore
         if (peer == null) return;
         if (receivedTextureBufferIsUpdated)
         {
+            if (ReceivedVideoFrame.texture2D.width != receivedTexture_width || ReceivedVideoFrame.texture2D.height != receivedTexture_height)
+            {
+                ReceivedVideoFrame.texture2D.Resize((int)receivedTexture_width, (int)receivedTexture_height);
+            }
+
             ReceivedVideoFrame.texture2D.LoadRawTextureData(receivedTextureBuffer);
             ReceivedVideoFrame.texture2D.Apply();
             receivedTextureBufferIsUpdated = false;
@@ -100,6 +107,7 @@ public class WebRtcCoreWindows : WebRtcCore
 
     public override void FrameGate_Input(Texture2D tex, long timestamp_us)
     {
+        return;
         if (peer == null) return;
         if (receivedTextureBufferIsUpdated) return;
         inputTexturePixels = tex.GetPixels32();
@@ -146,9 +154,16 @@ public class WebRtcCoreWindows : WebRtcCore
     public void ReceivedRGBFrame(int id, IntPtr rgb, uint width, uint height, long timestamp_us)
     {
         if (receivedTextureBufferIsUpdated) return;
+        if (receivedTexture_width != (int)width || receivedTexture_height != (int)height)
+        {
+            receivedTexture_width = (int)width;
+            receivedTexture_height = (int)height;
+            receivedTextureBuffer = new byte[4 * receivedTexture_width * receivedTexture_height];
+        }
         Marshal.Copy(rgb, receivedTextureBuffer, 0, (int)(4 * width * height));
         receivedTextureBufferIsUpdated = true;
         ReceivedVideoFrame.timestamp_us = timestamp_us;
+        Debug.Log("ReceivedVideoFrame " + width + ", " + height + ", " + timestamp_us);
 
     }
 
