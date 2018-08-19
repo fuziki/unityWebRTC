@@ -18,6 +18,7 @@ class CoMuLight: NSObject  {
     
     private var peerConnection: RTCPeerConnection!
     
+    
     func constraints() -> RTCMediaConstraints {
         return RTCMediaConstraints(mandatoryConstraints: ["OfferToReceiveVideo": kRTCMediaConstraintsValueTrue,
                                                           "OfferToReceiveAudio": kRTCMediaConstraintsValueTrue],

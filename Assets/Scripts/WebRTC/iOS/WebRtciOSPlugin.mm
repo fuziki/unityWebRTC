@@ -10,6 +10,9 @@ extern "C" {
     void CoMuLight_MakePeer();
     void CoMuLight_InputMetalFrame(unsigned char* frame);
     void CoMuLight_GetFrame(unsigned char* frame);
+    int CoMuLight_GetFrame_width();
+    int CoMuLight_GetFrame_height();
+    long CoMuLight_GetFrame_timestampNs();
     void CoMuLight_RegisterSdpReady(SDPREADY_CALLBACK callback);
     void CoMuLight_ReceivedSdp(char* type, char* sdp);
     void CoMuLogger_Log(char* msg);
@@ -35,6 +38,19 @@ void  CoMuLight_InputMetalFrame(unsigned char* frame) {
 void  CoMuLight_GetFrame(unsigned char* frame) {
     [[CoMuLightController share] getFrame: frame];
 }
+
+int CoMuLight_GetFrame_width() {
+    return [[CoMuLightController share] getFrame_width];
+}
+
+int CoMuLight_GetFrame_height() {
+    return [[CoMuLightController share] getFrame_height];
+}
+
+long CoMuLight_GetFrame_timestampNs() {
+    return [[CoMuLightController share] getFrame_timestampNs];
+}
+
 
 void  CoMuLogger_Log(char* msg) {
     NSLog(@"%@", [NSString stringWithUTF8String:msg]);

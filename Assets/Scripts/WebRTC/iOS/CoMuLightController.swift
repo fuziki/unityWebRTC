@@ -85,6 +85,29 @@ class CoMuLightController: NSObject {
             print("no rgb texture")
         }
     }
+    public func getFrame_width() -> Int {
+        if comu == nil { return 1920 }
+        
+        if let tex = (comu.frameGate.outputter)!._rgbTexture {
+            print("width :", tex.width)
+            return tex.width;
+        } else {
+            return 1920;
+        }
+    }
+    public func getFrame_height() -> Int {
+        if comu == nil { return 1920 }
+        
+        if let tex = (comu.frameGate.outputter)!._rgbTexture {
+            return tex.width;
+        } else {
+            return 1920;
+        }
+    }
+    public func getFrame_timestampNs() -> Int64 {
+        return 0;
+    }
+
     public func receivedSdp(_ description: String, message: String) {
         print("received sdp", description, message)
         if comu == nil { return }

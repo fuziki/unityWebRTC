@@ -127,6 +127,7 @@ extension CMLFrameGate {
         
         
         func renderFrame(_ frame: RTCVideoFrame?) {
+            print("render frame")
             self.frame = frame
             guard let _frame = self.frame else {
                 return

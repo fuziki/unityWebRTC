@@ -28,14 +28,14 @@ public class PeerConnectioniOS
     [DllImport("__Internal")]
     private static extern void CoMuLight_GetFrame(IntPtr frame);
 
-//    [DllImport("__Internal")]
-//    private static extern int CoMuLight_GetFrameWidth();
+    [DllImport("__Internal")]
+    private static extern int CoMuLight_GetFrame_width();
 
-//    [DllImport("__Internal")]
-//    private static extern int CoMuLight_GetFrameHeight();
+    [DllImport("__Internal")]
+    private static extern int CoMuLight_GetFrame_height();
 
-//    [DllImport("__Internal")]
-//    private static extern long CoMuLight_GetFrame_timesatmp_us();
+    [DllImport("__Internal")]
+    private static extern long CoMuLight_GetFrame_timestampNs();
 
 
     [DllImport("__Internal")]
@@ -110,11 +110,11 @@ public class PeerConnectioniOS
 
     public void Update()
     {
-        int width = receivedVideoFrame.texture2D.width;
-        int height = receivedVideoFrame.texture2D.height;
+        int width = CoMuLight_GetFrame_width();
+        int height = CoMuLight_GetFrame_height();
         if (width != receivedVideoFrame.texture2D.width || height != receivedVideoFrame.texture2D.height)
         {
-            receivedVideoFrame.texture2D = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            receivedVideoFrame.texture2D.Resize(width, height);
             pixels_output = receivedVideoFrame.texture2D.GetPixels32();
             pixelsHandle_output = GCHandle.Alloc(pixels_output, GCHandleType.Pinned);
             pixelsPtr_output = pixelsHandle_output.AddrOfPinnedObject();
@@ -123,6 +123,7 @@ public class PeerConnectioniOS
         CoMuLight_GetFrame(pixelsPtr_output);
         receivedVideoFrame.texture2D.SetPixels32(pixels_output);
         receivedVideoFrame.texture2D.Apply();
+        receivedVideoFrame.timestamp_us = CoMuLight_GetFrame_timestampNs() * 1000;
     }
 
     public long ReceivedTexture2D_timesatmp_us
