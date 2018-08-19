@@ -64,6 +64,11 @@ class CoMuLightController: NSObject {
         
         
         inputTexture = frame
+        
+        if inputTexture.width != pixelBuffer.toCGImage!.width || inputTexture.height != pixelBuffer.toCGImage!.height {
+            pixelBuffer = CoMuLightUtils.createPixelBuffer(width: inputTexture.width, height: inputTexture.height)
+        }
+        
         let ci = CIImage(mtlTexture: inputTexture, options: nil)!
         CIContext().render(ci, to: pixelBuffer)
         
