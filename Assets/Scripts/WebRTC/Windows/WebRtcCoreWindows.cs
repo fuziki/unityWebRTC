@@ -107,7 +107,6 @@ public class WebRtcCoreWindows : WebRtcCore
 
     public override void FrameGate_Input(Texture2D tex, long timestamp_us)
     {
-        return;
         if (peer == null) return;
         if (receivedTextureBufferIsUpdated) return;
         inputTexturePixels = tex.GetPixels32();
